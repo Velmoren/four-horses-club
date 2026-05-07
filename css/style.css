@@ -1,41 +1,51 @@
 :root {
-  /* Основные цвета */
-  --white-color: #FFFFFF;
-  --black-color: #1F1F1F;
-  --yellow-color: #FBCE51;
+    /* Основные цвета */
+    --white-color: #FFFFFF;
+    --black-color: #1F1F1F;
+    --gray-color: #313131;
+    --yellow-color: #FBCE51;
+    --red-color: #F54932;
+    --blue-color: #3057A2;
 }
 
-
-
 /* ---COMMON STYLES--- */
-*, *::before, *::after {
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
 }
 
-input, button, textarea, select {
-  font: inherit;
+input,
+button,
+textarea,
+select {
+    font: inherit;
 }
 
 body {
-  font-family: 'Merriweather', Georgia, serif; 
-  
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--black-color);
-  background-color: var(--white-color);
+    font-family: 'Merriweather', Georgia, serif;
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--black-color);
+    background-color: var(--white-color);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -43,7 +53,7 @@ body {
     max-width: 1242px;
     padding: 0 20px;
     margin: 0 auto;
-} 
+}
 
 /* ---COMPONENTS--- */
 /* BUTTON */
@@ -80,7 +90,7 @@ body {
         &:hover {
             color: #1F1F1F;
             border: solid 2px var(--yellow-color);
-            background-color: var(--yellow-color); 
+            background-color: var(--yellow-color);
         }
     }
 
@@ -92,7 +102,7 @@ body {
         &:hover {
             color: var(--white-color);
             border: solid 2px var(--black-color);
-            background-color: var(--black-color); 
+            background-color: var(--black-color);
         }
 
         @media (max-width: 768px) {
@@ -104,6 +114,53 @@ body {
     @media (max-width: 768px) {
         min-height: 47px;
         padding: 12px 40px;
+    }
+}
+
+/* LINE THROUGH */
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: var(--red-color); /* Красная линия как в макете */
+}
+
+/* LINK */
+.link {
+    font-family: "Golos Text", sans-serif;
+    font-size: 20px;
+    line-height: 120%;
+
+    color: var(--blue-color);
+
+    text-decoration: none;
+}
+
+/* TITLE */
+.title {
+    font-family: 'Merriweather', Georgia, serif;
+    text-transform: uppercase;
+    color: var(--gray-color);
+
+    & .-colored {
+        color: var(--red-color);
+    }
+}
+
+h1.title {
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 110%;
+
+    @media (max-width: 768px) {
+        font-size: 36px;
+    }
+}
+
+h2.title {
+    font-size: 36px;
+    line-height: 135%;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
     }
 }
 
@@ -163,22 +220,12 @@ header .logo-text {
 }
 
 .hero__title {
-    font-size: 60px;
-    font-weight: 400;
-    line-height: 110%;
-
     display: flex;
     flex-direction: column;
-
-    text-transform: uppercase;
-
-    @media (max-width: 768px) {
-        font-size: 36px;
-    }
 }
 
 .hero__title span {
-    &:nth-child(1){
+    &:nth-child(1) {
         align-self: flex-start;
     }
 
@@ -217,5 +264,141 @@ header .logo-text {
         .btn {
             max-width: 100%;
         }
+    }
+}
+
+/* SUPPORT */
+.support {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+.support-content {
+    display: grid;
+    gap: 24px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    grid-template-columns: 1fr 395px;
+    grid-template-areas: "text image";
+
+    column-gap: 60px;
+
+    & .support__title {
+        grid-area: text;
+    }
+
+    & .support__image {
+        grid-area: image;
+        max-width: 395px;
+        text-align: center;
+
+        & img {
+            width: 100%;
+            border-radius: 50%;
+        }
+    }
+
+    @media (max-width: 991px) {
+        justify-items: center;
+
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "part1"
+            "image"
+            "part2";
+
+        & .support__title {
+            display: contents;
+
+            &--part-1 {
+                grid-area: part1;
+            }
+
+            &--part-2 {
+                grid-area: part2;
+                text-align: center;
+            }
+        }
+
+        & .support__image {
+            grid-area: image;
+        }
+    }
+}
+
+/* CHESS */
+.chess {
+    padding-top: 24px;
+    padding-bottom: 100px;
+}
+
+.chess-content {
+    display: grid;
+    gap: 44px;
+
+    grid-template-columns: 395px 1fr;
+
+    @media (max-width: 991px) {
+        justify-items: center;
+
+        grid-template-columns: 1fr;
+    }
+}
+
+.chess__list {
+    width: 100%;
+    margin-top: 60px;
+    margin-bottom: 48px;
+
+    & .chess__list-item {
+        display: flex;
+        justify-content: flex-start;
+        border-bottom: 1px solid #D0D0D0;
+        gap: 16px;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px 0;
+        }
+
+        & .chess__list-item--label {
+            flex: 0 0 300px;
+
+            font-family: "Golos Text", sans-serif;
+            line-height: 120%;
+
+            color: rgba(49, 49, 49, 0.7);
+            padding: 16px 0;
+            border-right: 1px solid #D0D0D0;
+
+            @media (max-width: 768px) {
+                flex: none;
+                border-right: none;
+                padding: 0;
+            }
+        }
+
+        & .chess__list-item--value {
+            display: inline-flex;
+
+            font-family: "Golos Text", sans-serif;
+            font-weight: 600;
+            line-height: 120%;
+            color: #313131;
+
+            padding: 16px 0;
+            gap: 8px;
+
+            @media (max-width: 768px) {
+                padding: 0;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        margin-top: 44px;
     }
 }
