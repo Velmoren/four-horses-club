@@ -188,7 +188,7 @@ header .logo-text {
 /* HERO */
 .hero {
     height: 700px;
-    background-image: url('./images/hero-image.png'), url('./images/hero-mask.jpg');
+    background-image: url('images/hero-image.png'), url('images/hero-mask.jpg');
     background-repeat: no-repeat;
     background-size: 1627px 700px, cover;
     background-position: center bottom, center bottom;
@@ -203,7 +203,7 @@ header .logo-text {
 
     @media (max-width: 768px) {
         height: 774px;
-        background-image: url('./images/hero-image-mobile.png'), url('./images/hero-mask-mobile.jpg');
+        background-image: url('images/hero-image-mobile.png'), url('images/hero-mask-mobile.jpg');
         background-size: contain, cover;
         background-position: center bottom, center bottom;
     }
