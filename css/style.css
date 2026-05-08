@@ -140,6 +140,30 @@ body {
     text-transform: none;
 }
 
+/* BADGE */
+.badge {
+    display: block;
+    padding: 7px 12px;
+    border-radius: 30px;
+
+    color: var(--blue-color);
+    border: 1px solid var(--blue-color);
+    background-color: transparent;
+
+    font-family: "Golos Text", sans-serif;
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 500;
+
+    text-decoration: none;
+    text-transform: none;
+
+    &:hover {
+        color: var(--white-color);
+        background-color: var(--blue-color);
+    }
+}
+
 /* TITLE */
 .title {
     font-family: 'Merriweather', Georgia, serif;
@@ -610,6 +634,7 @@ header .logo-text {
             display: none;
         }
     }
+
     @media (min-width: 991px) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -716,7 +741,54 @@ header .logo-text {
 .participants__title {
     padding-right: 200px;
     margin-bottom: 60px;
+
+    @media (max-width: 768px) {
+        padding-right: 0;
+    }
 }
+
+.participants__slides-item {
+    display: flex;
+    flex-direction: column;
+
+    .participants__slides-item__avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .participants__slides-item__info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 28px;
+        gap: 6px;
+
+        .participants__slides-item__info-name {
+            font-family: "Golos Text", sans-serif;
+            font-size: 24px;
+            line-height: 120%;
+            font-weight: 600;
+        }
+
+        .participants__slides-item__info-role {
+            font-family: "Golos Text", sans-serif;
+            font-size: 20px;
+            line-height: 120%;
+            font-weight: 400;
+        }
+    }
+
+    .participants__slides-item__controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}
+
+
 
 .participants__controls {
     position: absolute;
