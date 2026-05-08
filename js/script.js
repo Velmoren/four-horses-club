@@ -1,211 +1,224 @@
-class Slider {
-    constructor(config) {
-        this.config = config;
-        this.track = document.getElementById(config.trackId);
-        this.prevBtn = document.getElementById(config.prevId);
-        this.nextBtn = document.getElementById(config.nextId);
-        this.pagContainer = document.getElementById(config.pagId);
-        this.navBlock = document.getElementById(config.navId);
-        // Добавляем контейнер для счетчика
-        this.counterContainer = document.getElementById(config.counterId);
+const funcSliders = () => {
+    class Slider {
+        constructor(config) {
+            this.config = config;
+            this.track = document.getElementById(config.trackId);
+            this.prevBtn = document.getElementById(config.prevId);
+            this.nextBtn = document.getElementById(config.nextId);
+            this.pagContainer = document.getElementById(config.pagId);
+            this.navBlock = document.getElementById(config.navId);
+            // Добавляем контейнер для счетчика
+            this.counterContainer = document.getElementById(config.counterId);
 
-        if (!this.track) return;
+            if (!this.track) return;
 
-        this.currentIndex = 0;
-        this.isDragging = false;
-        this.timer = null;
-        this.isSliderActive = false;
-
-        this.init = this.init.bind(this);
-        this.setupEvents();
-
-        if (this.navBlock) this.navBlock.style.display = 'none';
-
-        setTimeout(this.init, 100);
-        window.addEventListener('resize', this.init);
-    }
-
-    init() {
-        const width = window.innerWidth;
-        const breakpoints = this.config.breakpoints;
-        const currentBP = Object.keys(breakpoints)
-            .map(Number).sort((a, b) => a - b)
-            .find(bp => width <= bp);
-
-        const settings = currentBP ? breakpoints[currentBP] : this.config.desktopSettings;
-
-        if (!settings || !settings.isSlider) {
-            this.destroy();
-            return;
-        }
-
-        this.isSliderActive = true;
-        if (this.navBlock) this.navBlock.style.display = 'flex';
-        this.settings = settings;
-        this.slides = this.track.querySelectorAll('.slider-card');
-
-        const viewport = this.track.parentElement;
-        const paddingOffset = parseFloat(getComputedStyle(viewport).paddingLeft) + parseFloat(getComputedStyle(viewport).paddingRight);
-        const containerWidth = viewport.getBoundingClientRect().width - paddingOffset;
-        const gap = this.config.gap || 20;
-        const totalGap = gap * (this.settings.slidesToShow - 1);
-        this.slideWidth = (containerWidth - totalGap + 1) / this.settings.slidesToShow;
-
-        this.track.style.display = 'flex';
-        this.track.style.gap = `${gap}px`;
-        this.track.style.transition = 'transform 0.5s ease-in-out';
-
-        this.slides.forEach(slide => {
-            slide.style.width = `${this.slideWidth}px`;
-            slide.style.flexShrink = '0';
-        });
-
-        this.maxIndex = this.slides.length - this.settings.slidesToShow;
-        if (this.currentIndex > this.maxIndex) this.currentIndex = this.maxIndex;
-
-        this.renderPagination();
-        this.updateView();
-        this.startAutoplay();
-    }
-
-    destroy() {
-        if (this.navBlock) this.navBlock.style.display = 'none';
-        if (!this.isSliderActive) return;
-        this.isSliderActive = false;
-        this.stopAutoplay();
-        this.track.style.transition = 'none';
-        this.track.style.transform = '';
-        setTimeout(() => {
-            this.track.style.display = '';
-            this.track.style.gap = '';
-            this.track.style.transition = '';
-            const slides = this.track.querySelectorAll('.slider-card');
-            slides.forEach(s => {
-                s.style.width = '';
-                s.style.flexShrink = '';
-            });
-        }, 0);
-    }
-
-    setupEvents() {
-        if (this.nextBtn) this.nextBtn.onclick = () => { this.stopAutoplay(); this.move(1); this.startAutoplay(); };
-        if (this.prevBtn) this.prevBtn.onclick = () => { this.stopAutoplay(); this.move(-1); this.startAutoplay(); };
-
-        const getX = (e) => e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-
-        const start = (e) => {
-            if (!this.isSliderActive) return;
-            this.isDragging = true;
-            this.startX = getX(e);
-            this.track.style.transition = 'none';
-            this.stopAutoplay();
-        };
-
-        const move = (e) => { if (this.isDragging) this.endX = getX(e); };
-
-        const end = () => {
-            if (!this.isDragging) return;
+            this.currentIndex = 0;
             this.isDragging = false;
+            this.timer = null;
+            this.isSliderActive = false;
+
+            this.init = this.init.bind(this);
+            this.setupEvents();
+
+            if (this.navBlock) this.navBlock.style.display = 'none';
+
+            setTimeout(this.init, 100);
+            window.addEventListener('resize', this.init);
+        }
+
+        init() {
+            const width = window.innerWidth;
+            const breakpoints = this.config.breakpoints;
+            const currentBP = Object.keys(breakpoints)
+                .map(Number).sort((a, b) => a - b)
+                .find(bp => width <= bp);
+
+            const settings = currentBP ? breakpoints[currentBP] : this.config.desktopSettings;
+
+            if (!settings || !settings.isSlider) {
+                this.destroy();
+                return;
+            }
+
+            this.isSliderActive = true;
+            if (this.navBlock) this.navBlock.style.display = 'flex';
+            this.settings = settings;
+            this.slides = this.track.querySelectorAll('.slider-card');
+
+            const viewport = this.track.parentElement;
+            const paddingOffset = parseFloat(getComputedStyle(viewport).paddingLeft) + parseFloat(getComputedStyle(viewport).paddingRight);
+            const containerWidth = viewport.getBoundingClientRect().width - paddingOffset;
+            const gap = this.config.gap || 20;
+            const totalGap = gap * (this.settings.slidesToShow - 1);
+            this.slideWidth = (containerWidth - totalGap + 1) / this.settings.slidesToShow;
+
+            this.track.style.display = 'flex';
+            this.track.style.gap = `${gap}px`;
             this.track.style.transition = 'transform 0.5s ease-in-out';
-            const diff = this.startX - this.endX;
-            if (Math.abs(diff) > 50) this.move(diff > 0 ? 1 : -1);
-            else this.updateView();
+
+            this.slides.forEach(slide => {
+                slide.style.width = `${this.slideWidth}px`;
+                slide.style.flexShrink = '0';
+            });
+
+            this.maxIndex = this.slides.length - this.settings.slidesToShow;
+            if (this.currentIndex > this.maxIndex) this.currentIndex = this.maxIndex;
+
+            this.renderPagination();
+            this.updateView();
             this.startAutoplay();
-        };
-
-        this.track.addEventListener('mousedown', start);
-        this.track.addEventListener('touchstart', start, { passive: true });
-        window.addEventListener('mousemove', move);
-        window.addEventListener('touchmove', move, { passive: true });
-        window.addEventListener('mouseup', end);
-        window.addEventListener('touchend', end);
-    }
-
-    move(step) {
-        let newIndex = this.currentIndex + step;
-        if (this.config.loop) {
-            if (newIndex > this.maxIndex) newIndex = 0;
-            else if (newIndex < 0) newIndex = this.maxIndex;
-        } else {
-            newIndex = Math.max(0, Math.min(newIndex, this.maxIndex));
         }
-        this.currentIndex = newIndex;
-        this.updateView();
-    }
 
-    updateView() {
-        if (!this.isSliderActive) return;
-        const gap = this.config.gap || 20;
-        const stageWidth = this.slides[0].getBoundingClientRect().width;
-        const offset = this.currentIndex * (stageWidth + gap);
-        this.track.style.transform = `translateX(-${offset}px)`;
-
-        if (this.prevBtn) this.prevBtn.disabled = !this.config.loop && this.currentIndex === 0;
-        if (this.nextBtn) this.nextBtn.disabled = !this.config.loop && this.currentIndex === this.maxIndex;
-
-        // Обновление пагинации
-        const dots = this.pagContainer?.querySelectorAll('.slider-nav__pagination-dot');
-        dots?.forEach((dot, idx) => dot.classList.toggle('active', idx === this.currentIndex));
-
-        // Обновление счетчика
-        this.updateCounter();
-    }
-
-    updateCounter() {
-        if (!this.counterContainer || !this.isSliderActive) return;
-        const current = this.currentIndex + this.settings.slidesToShow;
-        const total = this.slides.length;
-        this.counterContainer.innerHTML = `<span>${current}</span> / ${total}`;
-    }
-
-    renderPagination() {
-        if (!this.pagContainer) {
-            this.updateCounter(); // Обновляем счетчик, даже если нет точек
-            return;
-        }
-        this.pagContainer.innerHTML = '';
-        for (let i = 0; i <= this.maxIndex; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'slider-nav__pagination-dot';
-            this.pagContainer.appendChild(dot);
-        }
-    }
-
-    startAutoplay() {
-        if (this.config.autoplayInterval > 0 && this.isSliderActive) {
+        destroy() {
+            if (this.navBlock) this.navBlock.style.display = 'none';
+            if (!this.isSliderActive) return;
+            this.isSliderActive = false;
             this.stopAutoplay();
-            this.timer = setInterval(() => this.move(1), this.config.autoplayInterval);
+            this.track.style.transition = 'none';
+            this.track.style.transform = '';
+            setTimeout(() => {
+                this.track.style.display = '';
+                this.track.style.gap = '';
+                this.track.style.transition = '';
+                const slides = this.track.querySelectorAll('.slider-card');
+                slides.forEach(s => {
+                    s.style.width = '';
+                    s.style.flexShrink = '';
+                });
+            }, 0);
         }
+
+        setupEvents() {
+            if (this.nextBtn) this.nextBtn.onclick = () => { this.stopAutoplay(); this.move(1); this.startAutoplay(); };
+            if (this.prevBtn) this.prevBtn.onclick = () => { this.stopAutoplay(); this.move(-1); this.startAutoplay(); };
+
+            const getX = (e) => e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+
+            const start = (e) => {
+                if (!this.isSliderActive) return;
+                this.isDragging = true;
+                this.startX = getX(e);
+                this.track.style.transition = 'none';
+                this.stopAutoplay();
+            };
+
+            const move = (e) => { if (this.isDragging) this.endX = getX(e); };
+
+            const end = () => {
+                if (!this.isDragging) return;
+                this.isDragging = false;
+                this.track.style.transition = 'transform 0.5s ease-in-out';
+                const diff = this.startX - this.endX;
+                if (Math.abs(diff) > 50) this.move(diff > 0 ? 1 : -1);
+                else this.updateView();
+                this.startAutoplay();
+            };
+
+            this.track.addEventListener('mousedown', start);
+            this.track.addEventListener('touchstart', start, { passive: true });
+            window.addEventListener('mousemove', move);
+            window.addEventListener('touchmove', move, { passive: true });
+            window.addEventListener('mouseup', end);
+            window.addEventListener('touchend', end);
+        }
+
+        move(step) {
+            let newIndex = this.currentIndex + step;
+            if (this.config.loop) {
+                if (newIndex > this.maxIndex) newIndex = 0;
+                else if (newIndex < 0) newIndex = this.maxIndex;
+            } else {
+                newIndex = Math.max(0, Math.min(newIndex, this.maxIndex));
+            }
+            this.currentIndex = newIndex;
+            this.updateView();
+        }
+
+        updateView() {
+            if (!this.isSliderActive) return;
+            const gap = this.config.gap || 20;
+            const stageWidth = this.slides[0].getBoundingClientRect().width;
+            const offset = this.currentIndex * (stageWidth + gap);
+            this.track.style.transform = `translateX(-${offset}px)`;
+
+            if (this.prevBtn) this.prevBtn.disabled = !this.config.loop && this.currentIndex === 0;
+            if (this.nextBtn) this.nextBtn.disabled = !this.config.loop && this.currentIndex === this.maxIndex;
+
+            // Обновление пагинации
+            const dots = this.pagContainer?.querySelectorAll('.slider-nav__pagination-dot');
+            dots?.forEach((dot, idx) => dot.classList.toggle('active', idx === this.currentIndex));
+
+            // Обновление счетчика
+            this.updateCounter();
+        }
+
+        updateCounter() {
+            if (!this.counterContainer || !this.isSliderActive) return;
+            const current = this.currentIndex + this.settings.slidesToShow;
+            const total = this.slides.length;
+            this.counterContainer.innerHTML = `<span>${current}</span> / ${total}`;
+        }
+
+        renderPagination() {
+            if (!this.pagContainer) {
+                this.updateCounter(); // Обновляем счетчик, даже если нет точек
+                return;
+            }
+            this.pagContainer.innerHTML = '';
+            for (let i = 0; i <= this.maxIndex; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'slider-nav__pagination-dot';
+                this.pagContainer.appendChild(dot);
+            }
+        }
+
+        startAutoplay() {
+            if (this.config.autoplayInterval > 0 && this.isSliderActive) {
+                this.stopAutoplay();
+                this.timer = setInterval(() => this.move(1), this.config.autoplayInterval);
+            }
+        }
+
+        stopAutoplay() { clearInterval(this.timer); }
     }
 
-    stopAutoplay() { clearInterval(this.timer); }
+    new Slider({
+        trackId: 'transformation-track',
+        navId: 'transformation-nav',
+        prevId: 'transformation-prev',
+        nextId: 'transformation-next',
+        pagId: 'transformation-pagination',
+        // autoplayInterval: 2000,
+        loop: true,
+        gap: 20,
+        desktopSettings: { isSlider: false },
+        breakpoints: {
+            768: { isSlider: true, slidesToShow: 1 }
+        }
+    });
+
+    new Slider({
+        trackId: 'participants-track',
+        navId: 'participants-nav',
+        prevId: 'participants-prev',
+        nextId: 'participants-next',
+        counterId: 'participants-counter',
+        gap: 20,
+        desktopSettings: { isSlider: true, slidesToShow: 3 },
+        breakpoints: {
+            768: { isSlider: true, slidesToShow: 1 },
+            991: { isSlider: true, slidesToShow: 2 }
+        }
+    });
 }
 
-new Slider({
-    trackId: 'transformation-track',
-    navId: 'transformation-nav',
-    prevId: 'transformation-prev',
-    nextId: 'transformation-next',
-    pagId: 'transformation-pagination',
-    // autoplayInterval: 2000,
-    loop: true,
-    gap: 20,
-    desktopSettings: { isSlider: false }, 
-    breakpoints: {
-        768: { isSlider: true, slidesToShow: 1 }
-    }
-});
+const funcMarquees = () => {
+    const marquees = document.querySelectorAll('.marquee-content');
 
-new Slider({
-    trackId: 'participants-track',
-    navId: 'participants-nav',
-    prevId: 'participants-prev',
-    nextId: 'participants-next',
-    counterId: 'participants-counter',
-    gap: 20,
-    desktopSettings: { isSlider: true, slidesToShow: 3 }, 
-    breakpoints: {
-        768: { isSlider: true, slidesToShow: 1 },
-        991: { isSlider: true, slidesToShow: 2 }
-    }
-});
+    marquees.forEach(marquee => {
+        marquee.innerHTML += marquee.innerHTML
+    })
+}
+
+funcSliders()
+funcMarquees()

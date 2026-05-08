@@ -823,3 +823,35 @@ footer {
         color: var(--gray-color);
     }
 }
+
+.marquee {
+    .marquee-container {
+    overflow: hidden;
+    background-color: var(--red-color);
+    color: var(--white-color);
+    white-space: nowrap;
+    padding: 18px 0;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    }
+
+    .marquee-content {
+    display: inline-block;
+    animation: marquee 40s linear infinite;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 110%;
+    }
+
+    .marquee-divider {
+    display: inline-block;
+    padding: 0 12px;
+    color: var(--white-color);
+    }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); } /* Сдвигаем ровно на половину общей длины */
+}
