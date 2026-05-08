@@ -7,6 +7,7 @@
     --yellow-color: #FBCE51;
     --red-color: #F54932;
     --blue-color: #3057A2;
+    --bougie-color: #E9DED4;
 }
 
 /* ---COMMON STYLES--- */
@@ -19,6 +20,10 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 img,
@@ -77,6 +82,8 @@ body {
     -webkit-appearance: none;
     outline: none;
     box-shadow: none;
+    text-align: center;
+    text-decoration: none;
 
     &:hover {
         appearance: none;
@@ -733,6 +740,7 @@ header .logo-text {
     margin-top: 20px;
 }
 
+/* PARTICIPANTS */
 .participants {
     padding-top: 100px;
     padding-bottom: 100px;
@@ -798,5 +806,20 @@ header .logo-text {
     @media (max-width: 768px) {
         position: static;
         margin-top: 20px;
+    }
+}
+
+/* FOOTER */
+footer {
+    padding: 40px 0 72px 0;
+
+    background-color: var(--bougie-color);
+
+    p {
+        font-family: "Golos Text", sans-serif;
+        font-size: 16px;
+        line-height: 120%;
+        font-weight: 400;
+        color: var(--gray-color);
     }
 }
