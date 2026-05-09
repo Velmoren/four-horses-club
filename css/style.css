@@ -970,14 +970,15 @@ footer {
         padding: 0 12px;
         color: var(--white-color);
     }
+}
 
-    @keyframes marquee {
-        from {
-            transform: translateX(0);
-        }
+/* ANIMATIONS */
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
 
-        to {
-            transform: translateX(-50%);
-        }
+    to {
+        transform: translateX(-50%);
     }
 }
