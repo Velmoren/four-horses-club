@@ -519,7 +519,7 @@ header {
         transform: scale(1.06) translate(-10px, -10px);
 
         @media (max-width: 768px) {
-            transform: scale(1.12) translate(0px, 0px);
+            transform: scale(1) translate(0px, 0px);
         }
     }
 
