@@ -146,6 +146,10 @@ body {
 
     text-decoration: none;
     text-transform: none;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
 }
 
 /* BADGE */
@@ -200,7 +204,8 @@ h2.title {
     line-height: 120%;
 
     @media (max-width: 768px) {
-        font-size: 36px;
+        font-size: 37px;
+        line-height: 110%;
     }
 }
 
@@ -315,6 +320,14 @@ header {
         justify-content: flex-start;
         gap: 6px;
 
+        .logo-icon {
+            max-width: 92px;
+
+            @media (max-width: 768px) {
+                max-width: 80px;
+            }
+        }
+
         .logo-text {
             font-family: "Golos Text", sans-serif;
             font-size: 17px;
@@ -323,7 +336,16 @@ header {
             color: var(--gray-heavy-dark-color);
 
             text-transform: uppercase;
+
+            @media (max-width: 768px) {
+                font-size: 14px;
+            }
         }
+    }
+
+    @media (max-width: 768px) {
+        padding-top: 18px;
+        padding-bottom: 44px;
     }
 }
 
@@ -374,6 +396,10 @@ header {
         text-align: center;
 
         margin-top: 24px;
+
+        @media (max-width: 768px) {
+            text-align: left;
+        }
     }
 
     .hero__controls {
@@ -388,6 +414,7 @@ header {
             flex-direction: column;
 
             width: 100%;
+            margin-top: 28px;
 
             .btn {
                 max-width: 100%;
@@ -471,12 +498,21 @@ header {
             }
         }
     }
+
+    @media (max-width: 768px) {
+        padding-top: 50px;
+        padding-bottom: 30px;
+    }
 }
 
 /* CHESS */
 .chess {
     padding-top: 24px;
     padding-bottom: 100px;
+
+    @media (max-width: 768px) {
+        padding-bottom: 58px;
+    }
 
     .chess-content {
         display: grid;
@@ -492,85 +528,101 @@ header {
 
         .chess__image {
             transform: scale(1.06) translate(-10px, -10px);
+
+            @media (max-width: 768px) {
+                transform: scale(1.12) translate(0px, 0px);
+            }
         }
     }
 
-    .chess__list {
-        width: 100%;
-        margin-top: 60px;
-        margin-bottom: 46px;
+    .chess-info {
+        .chess__list {
+            width: 100%;
+            margin-top: 60px;
+            margin-bottom: 46px;
 
-        & .chess__list-item {
-            display: flex;
-            justify-content: flex-start;
-            gap: 16px;
+            & .chess__list-item {
+                display: flex;
+                justify-content: flex-start;
+                gap: 16px;
 
-            &:not(:last-child) {
-                border-bottom: 1px solid var(--gray-color);
-            }
-
-            &:not(:first-child):not(:last-child) {
-                div {
-                    padding: 16px 0 15px 0;
+                &:not(:last-child) {
+                    border-bottom: 1px solid var(--gray-color);
                 }
-            }
 
-            &:first-child {
-                div {
-                    padding: 2px 0 15px 0;
+                &:not(:first-child):not(:last-child) {
+                    div {
+                        padding: 16px 0 15px 0;
+                    }
                 }
-            }
 
-            &:last-child {
-                div {
-                    padding: 16px 0 2px 0;
+                &:first-child {
+                    div {
+                        padding: 2px 0 15px 0;
+                    }
+                }
+
+                &:last-child {
+                    div {
+                        padding: 16px 0 2px 0;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    display: inline-flex;
+                    flex-wrap: wrap;
+                    padding: 14px 0;
+                    gap: 15px;
+
+                    div {
+                        padding: 0 !important;
+                    }
+                }
+
+                & .chess__list-item--label {
+                    flex: 0 0 304px;
+
+                    font-family: "Golos Text", sans-serif;
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 120%;
+                    color: var(--gray-dark-color);
+
+                    border-right: 1px solid var(--gray-color);
+
+                    @media (max-width: 768px) {
+                        flex: none;
+                        border-right: none;
+
+                        padding: 0;
+                    }
+                }
+
+                & .chess__list-item--value {
+                    display: inline-flex;
+
+                    font-family: "Golos Text", sans-serif;
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 120%;
+                    color: var(--gray-dark-color);
+
+                    gap: 8px;
+
+                    @media (max-width: 768px) {
+                        padding: 0;
+                    }
                 }
             }
 
             @media (max-width: 768px) {
-                flex-direction: column;
-                gap: 8px;
-                padding: 12px 0;
-            }
-
-            & .chess__list-item--label {
-                flex: 0 0 304px;
-
-                font-family: "Golos Text", sans-serif;
-                font-size: 20px;
-                font-weight: 400;
-                line-height: 120%;
-                color: var(--gray-dark-color);
-
-                border-right: 1px solid var(--gray-color);
-
-                @media (max-width: 768px) {
-                    flex: none;
-                    border-right: none;
-
-                    padding: 0;
-                }
-            }
-
-            & .chess__list-item--value {
-                display: inline-flex;
-
-                font-family: "Golos Text", sans-serif;
-                font-size: 20px;
-                font-weight: 600;
-                line-height: 120%;
-                color: var(--gray-dark-color);
-
-                gap: 8px;
-
-                @media (max-width: 768px) {
-                    padding: 0;
-                }
+                margin-top: 30px;
+                margin-bottom: 26px;
             }
         }
 
         @media (max-width: 768px) {
-            margin-top: 44px;
+            padding-top: 24px;
         }
     }
 }
@@ -581,6 +633,11 @@ header {
     padding-bottom: 100px;
     position: relative;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
 
     .transformation-image {
         position: absolute;
@@ -629,6 +686,7 @@ header {
         @media (max-width: 768px) {
             display: block;
             margin-left: 0;
+            margin-top: 10px;
             max-width: 100%;
         }
     }
@@ -752,6 +810,9 @@ header {
 
         @media (max-width: 768px) {
             padding: 60px 20px 34px 20px;
+            font-size: 18px;
+            line-height: 124%;
+            min-height: 0;
         }
     }
 
@@ -761,8 +822,12 @@ header {
         background-size: cover;
 
         @media (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+
             background-image: url(../images/stage-image.jpg);
             padding: 60px 20px 34px 20px;
+            gap: 26px;
 
             .transformation__stages-item {
                 background-image: none;
@@ -781,12 +846,18 @@ header {
     padding-top: 100px;
     padding-bottom: 140px;
 
+    @media (max-width: 768px) {
+        padding-top: 60px;
+        padding-bottom: 114px;
+    }
+
     .participants__title {
         padding-right: 200px;
         margin-bottom: 60px;
 
         @media (max-width: 768px) {
             padding-right: 0;
+            margin-bottom: 40px;
         }
     }
 
@@ -798,6 +869,12 @@ header {
             display: flex;
             align-items: center;
             justify-content: center;
+
+            @media (max-width: 768px) {
+                img {
+                    max-width: 244px;
+                }
+            }
         }
 
         .participants__slides-item__info {
@@ -866,10 +943,14 @@ footer {
         background-color: var(--red-color);
         color: var(--white-color);
         white-space: nowrap;
-        padding: 16px 0;
+        padding: 18px 0 14px 0;
         font-family: sans-serif;
         font-weight: bold;
         text-transform: uppercase;
+
+        @media (max-width: 768px) {
+            padding: 8px 0 4px 0;
+        }
     }
 
     .marquee-content {
@@ -878,6 +959,10 @@ footer {
         font-size: 22px;
         font-weight: 400;
         line-height: 110%;
+
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
     }
 
     .marquee-divider {
