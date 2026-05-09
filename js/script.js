@@ -188,8 +188,6 @@ const funcSliders = () => {
         prevId: 'transformation-prev',
         nextId: 'transformation-next',
         pagId: 'transformation-pagination',
-        // autoplayInterval: 2000,
-        loop: true,
         gap: 20,
         desktopSettings: { isSlider: false },
         breakpoints: {
@@ -204,6 +202,8 @@ const funcSliders = () => {
         nextId: 'participants-next',
         counterId: 'participants-counter',
         gap: 20,
+        autoplayInterval: 4000,
+        loop: true,
         desktopSettings: { isSlider: true, slidesToShow: 3 },
         breakpoints: {
             768: { isSlider: true, slidesToShow: 1 },
