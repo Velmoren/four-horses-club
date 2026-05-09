@@ -504,6 +504,12 @@ header {
     padding-top: 24px;
     padding-bottom: 100px;
 
+    .chess-container {
+        @media (max-width: 768px) {
+            padding: 0;
+        }
+    }
+
     .chess-content {
         display: grid;
         grid-template-columns: 495px 1fr;
@@ -513,19 +519,24 @@ header {
             grid-template-columns: 1fr;
             justify-items: center;
         }
+
+        @media (max-width: 768px) {
+            gap: 10px;
+        }
     }
 
     .chess__image {
         transform: scale(1.06) translate(-10px, -10px);
 
         @media (max-width: 768px) {
+            max-width: 375px;
             transform: scale(1) translate(0px, 0px);
         }
     }
 
     .chess-info {
         @media (max-width: 768px) {
-            padding-top: 24px;
+            padding: 14px 20px 0;
         }
     }
 
@@ -607,6 +618,7 @@ header {
     }
 
     @media (max-width: 768px) {
+        padding-top: 4px;
         padding-bottom: 58px;
     }
 }
